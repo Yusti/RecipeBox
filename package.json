@@ -5,7 +5,8 @@
   "main": "index.js",
   "homepage": "https://github.com/Yusti/RecipeBox#readme",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "deploy": "npm run build&&gh-pages -d build"
   },
   "repository": {
     "type": "git",
