@@ -11,11 +11,24 @@ export const Wrapper = styled.div`
   margin: auto;
 `;
 
-export const RecipeItem = styled.div`
-  background-color: #876876;
-  margin: 10px;
-  width: 380px;
-  max-width: 100vw;
-  height: 360px;
-  max-width: 90vw;
+export const Title = styled.h2`
+  font-size: 40px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  text-align: center;
+  color: brown;
+`;
+
+export const Button = styled.button`
+  display: inline-block;
+  color: brown;
+  font-size: 16px;
+  margin: 30px auto;
+  padding: 7px 15px;
+  border: 2px solid brown;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    color: lemonchiffon;
+    background-color: brown;
+  }
 `;
