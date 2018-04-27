@@ -7,7 +7,9 @@ import { createStructuredSelector } from 'reselect';
 import { selectFormTitle, selectFormIngridients, selectFormId } from '../selectors';
 import * as recipeItemActions from '../actions';
 
-import { Button, Form, Input, Textarea, Label } from './styles';
+import Button from '../../../components/LinkedButton';
+
+import { Form, Input, Textarea, Label } from './styles';
 import { customStyles } from '../styles';
 
 type Actions = {
@@ -38,10 +40,8 @@ class DetailsModal extends PureComponent {
           </Label>
           <Textarea value={this.props.ingridients} name="activeIngridients" onChange={handleChange} />
           <div>
-            <Button type="submit" onClick={() => saveItemUpdates(this.props.id)}>
-              Save
-            </Button>
-            <Button onClick={hideEditModal}>Cancel</Button>
+            <Button type="submit" onClick={() => saveItemUpdates(this.props.id)} title="Save" />
+            <Button onClick={hideEditModal} title="Cancel" />
           </div>
         </Form>
       </Modal>

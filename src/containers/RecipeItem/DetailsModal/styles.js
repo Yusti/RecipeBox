@@ -29,18 +29,3 @@ export const Ingridient = styled.li`
   color: darkred;
   font-style: italic;
 `;
-
-export const Button = styled.button`
-  display: inline-block;
-  color: tomato;
-  font-size: 16px;
-  font-weight: bold;
-  margin: auto;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  text-decoration: underline;
-  &:hover {
-    text-decoration: none;
-  }
-`;

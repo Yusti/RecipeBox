@@ -7,7 +7,9 @@ import { createStructuredSelector } from 'reselect';
 import { selectFormTitle, selectFormIngridients, selectFormId } from '../selectors';
 import * as recipeItemActions from '../actions';
 
-import { Title, Ingridient, IngridientsWrapper, Subtitle, Button } from './styles';
+import Button from '../../../components/LinkedButton';
+
+import { Title, Ingridient, IngridientsWrapper, Subtitle } from './styles';
 import { customStyles } from '../styles';
 
 type Actions = {
@@ -40,15 +42,9 @@ class DetailsModal extends PureComponent {
           <ul>
             {ingridientsList}
           </ul>
-          <Button onClick={() => showEditModal(id, title, ingridients)}>
-            Edit
-          </Button>
-          <Button onClick={() => deleteItem(id)}>
-            Delete
-          </Button>
-          <Button onClick={hideDetailsModal}>
-            Back
-          </Button>
+          <Button onClick={() => showEditModal(id, title, ingridients)} title="Edit" />
+          <Button onClick={() => deleteItem(id)} title="Delete" />
+          <Button onClick={hideDetailsModal} title="Back" />
         </IngridientsWrapper>
       </Modal>
     );
