@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 
-import bgImg from './images/recipe-bg.jpg';
-import bgModal from './images/vintage-pergament.jpg';
 
 export const Item = styled.div`
-  background-image: url(${bgImg});
   background-repeat: no-repeat;
   background-size: cover;
   margin: 10px;
@@ -30,7 +27,7 @@ export const Title = styled.h2`
 
 export const customStyles = {
   content: {
-    backgroundImage: `url(${bgModal})`,
+    // backgroundImage: `url(${bgModal})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   },
