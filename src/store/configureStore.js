@@ -10,13 +10,8 @@ const initialState = [
   },
   {
     id: 2,
-    title: 'Cake',
-    ingridients: '1, 2, 3, 4',
-  },
-  {
-    id: 3,
-    title: 'Cake3',
-    ingridients: '1, 2, 3, 43',
+    title: 'Mushroom Toast with Fried Egg',
+    ingridients: '4 large eggs, 4 slices bread, 3 tablespoons olive oil, 1/2 teaspoon salt, 1 pound mushrooms',
   },
 ];
 
