@@ -1,8 +1,8 @@
-import GET_RECIPES from './constants';
+import SET_RECIPES from './constants';
 
 export default function recipeList(state = {}, action) {
   switch (action.type) {
-    case GET_RECIPES:
+    case SET_RECIPES:
       return {
         ...state,
         recipeList: action.payload,

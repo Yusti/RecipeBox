@@ -10,10 +10,6 @@ type Props = {
 export default class LinkedButton extends PureComponent {
   props: Props;
   render() {
-    return (
-      <Button onClick={this.props.onClick}>
-        {this.props.title}
-      </Button>
-    );
+    return <Button onClick={this.props.onClick}>{this.props.title}</Button>;
   }
 }

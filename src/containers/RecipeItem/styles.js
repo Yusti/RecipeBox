@@ -1,31 +1,22 @@
 import styled from 'styled-components';
 
-import bgImg from './images/recipe-bg.jpg';
 import bgModal from './images/vintage-pergament.jpg';
 
 export const Item = styled.div`
-  background-image: url(${bgImg});
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin: 10px;
-  width: 380px;
-  max-width: 100vw;
-  height: 360px;
-  max-width: 90vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
+  background-color: wheat;
+  margin: 10px auto;
+  border: solid 2px tan;
+  border-radius: 3px;
+  max-width: 900px;
 `;
 
 export const Title = styled.h2`
-  font-size: 40px;
+  margin: 20px;
+  font-size: 32px;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
   text-align: center;
   color: brown;
+  cursor: pointer;
 `;
 
 export const customStyles = {
@@ -35,3 +26,21 @@ export const customStyles = {
     backgroundSize: 'cover',
   },
 };
+
+export const IngridientsWrapper = styled.div`
+  text-align: center;
+  color: darkred;
+  padding: 10px 20px 20px;
+  background-color: papayawhip;
+  font-family: "Lucida Console", Monaco, monospace;
+  h2 {
+    text-decoration: underline;
+    font-size: 24px;
+  }
+`;
+
+export const Ingridient = styled.li`
+  text-align: left;
+  font-size: 20px;
+  font-style: italic;
+`;

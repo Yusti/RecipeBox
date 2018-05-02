@@ -1,42 +1,72 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
-import * as recipeItemActions from './actions';
+import { showDetails, showEditModal } from './actions';
+import { deleteItem } from '../RecipeList/actions';
+import { selectActiveId } from './selectors';
 
-import { Item, Title } from './styles';
+import Button from '../../components/LinkedButton';
 
-type Actions = {
-  showDetailsModal: Function,
-};
+import { Item, Title, Ingridient, IngridientsWrapper } from './styles';
 
 type Props = {
-  actions: Actions,
+  showDetailsAction: Function,
+  showEditModalAction: Function,
+  deleteItemAction: Function,
   title: string,
   ingridients: string,
   id: number,
+  activeId: number,
 };
 
 class RecipeItem extends PureComponent {
   props: Props;
+  renderIngredientsList = () => this.props.ingridients.split(',').map(ingridient => (
+    <Ingridient key={ingridient}>{ingridient}</Ingridient>
+  ));
   render() {
-    const { showDetailsModal } = this.props.actions;
+    const {
+      showDetailsAction,
+      showEditModalAction,
+      deleteItemAction,
+      id,
+      title,
+      ingridients,
+      activeId,
+    } = this.props;
     return (
       <div>
-        <Item
-          onClick={() => showDetailsModal(this.props.id, this.props.title, this.props.ingridients)}
-        >
-          <Title>{this.props.title}</Title>
+        <Item onClick={() => showDetailsAction(id, title, ingridients)}>
+          <Title>{title}</Title>
+          {
+            activeId === id
+            && (
+              <IngridientsWrapper>
+                <h2>Ingridients:</h2>
+                {this.renderIngredientsList()}
+                <Button onClick={() => deleteItemAction(id)} title="Delete" />
+                <Button onClick={() => showEditModalAction(id, title, ingridients)} title="Edit" />
+              </IngridientsWrapper>
+            )
+          }
         </Item>
       </div>
     );
   }
 }
 
+const mapStateToProps = createStructuredSelector({
+  activeId: selectActiveId(),
+});
+
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(recipeItemActions, dispatch),
+    showDetailsAction: bindActionCreators(showDetails, dispatch),
+    showEditModalAction: bindActionCreators(showEditModal, dispatch),
+    deleteItemAction: bindActionCreators(deleteItem, dispatch),
   };
 }
 
-export default connect(null, mapDispatchToProps)(RecipeItem);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeItem);

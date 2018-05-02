@@ -3,16 +3,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import getRecipesActions from './actions';
+import { loadRecipes } from './actions';
 import { showNewRecipeModal } from '../RecipeItem/actions';
 import selectRecipeList from './selectors';
 import { selectModalState } from '../RecipeItem/selectors';
 
 import RecipeItem from '../RecipeItem';
-import DetailsModal from '../RecipeItem/DetailsModal';
 import EditModal from '../RecipeItem/EditModal';
 
-import { Wrapper, Title, Button } from './styles';
+import { Wrapper, Title, Button, EmptyBox } from './styles';
 
 type RecipeListObj = {
   recipeList: Array,
@@ -24,23 +23,29 @@ type ModalState = {
 };
 
 type Props = {
-  getRecipes: Function,
-  showNewRecipeModal: Function,
+  loadRecipes: Function,
+  showNewRecipeModalAction: Function,
   recipeList: RecipeListObj,
   modalState: ModalState,
 };
 
 class RecipeList extends PureComponent {
   componentDidMount() {
-    this.props.getRecipes();
+    this.props.loadRecipes();
   }
   props: Props;
-  render() {
-    const { showDetails, editRecipe } = this.props.modalState;
-    const recipeList = Object.keys(this.props.recipeList).length > 0
-      ? this.props.recipeList.recipeList
-      : [];
-    const recipes = recipeList.map(recipe => (
+  renderRecipeList = () => {
+    const { recipeList } = this.props;
+    const recipes = Object.keys(recipeList).length > 0 ? recipeList.recipeList : [];
+    if (!recipes.length) {
+      return (
+        <EmptyBox>
+          <h2>Your Recipe Box is empty.</h2>
+          <p>Click the button below and add new recipe to your box.</p>
+        </EmptyBox>
+      );
+    }
+    return recipes.map(recipe => (
       <RecipeItem
         key={recipe.id}
         id={recipe.id}
@@ -48,14 +53,16 @@ class RecipeList extends PureComponent {
         ingridients={recipe.ingridients}
       />
     ));
-    return this.props.recipeList && (
+  };
+  render() {
+    const { modalState: { editRecipe }, showNewRecipeModalAction, recipeList } = this.props;
+    return recipeList && (
       <div>
         <Title>My Recipe Box</Title>
         <Wrapper>
-          {recipes}
+          {this.renderRecipeList()}
         </Wrapper>
-        <Button onClick={this.props.showNewRecipeModal}>New Recipe</Button>
-        <DetailsModal isOpen={showDetails} />
+        <Button onClick={showNewRecipeModalAction}>New Recipe</Button>
         <EditModal isOpen={editRecipe} />
       </div>
     );
@@ -69,8 +76,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRecipes: bindActionCreators(getRecipesActions, dispatch),
-    showNewRecipeModal: bindActionCreators(showNewRecipeModal, dispatch),
+    loadRecipes: bindActionCreators(loadRecipes, dispatch),
+    showNewRecipeModalAction: bindActionCreators(showNewRecipeModal, dispatch),
   };
 }
 

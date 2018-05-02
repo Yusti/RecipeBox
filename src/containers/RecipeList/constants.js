@@ -1,2 +1,2 @@
-const GET_RECIPES = 'RecipeBox/RecipeList/GET_RECIPES';
-export default GET_RECIPES;
+const SET_RECIPES = 'RecipeBox/RecipeList/SET_RECIPES';
+export default SET_RECIPES;
