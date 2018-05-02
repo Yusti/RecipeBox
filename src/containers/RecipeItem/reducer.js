@@ -1,5 +1,5 @@
 import {
-  SHOW_DETAILS,
+  TOGGLE_DETAILS_VISIBILITY,
   SHOW_EDIT_MODAL,
   HIDE_EDIT_MODAL,
 } from './constants';
@@ -11,7 +11,7 @@ const initialState = {
 
 export default function recipeItem(state = initialState, action) {
   switch (action.type) {
-    case SHOW_DETAILS:
+    case TOGGLE_DETAILS_VISIBILITY:
       return {
         ...state,
         activeId: action.payload,

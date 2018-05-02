@@ -1,43 +1,32 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import { loadRecipes } from './actions';
 import { showNewRecipeModal } from '../RecipeItem/actions';
 import selectRecipeList from './selectors';
-import { selectModalState } from '../RecipeItem/selectors';
+import { selectEditModalVisibility } from '../RecipeItem/selectors';
 
 import RecipeItem from '../RecipeItem';
 import EditModal from '../RecipeItem/EditModal';
 
 import { Wrapper, Title, Button, EmptyBox } from './styles';
 
-type RecipeListObj = {
-  recipeList: Array,
-};
-
-type ModalState = {
-  showDetails: boolean,
-  editRecipe: boolean,
-};
-
 type Props = {
-  loadRecipes: Function,
+  loadRecipesAction: Function,
   showNewRecipeModalAction: Function,
-  recipeList: RecipeListObj,
-  modalState: ModalState,
+  recipeList: Array,
+  editModalVisibility: boolean,
 };
 
 class RecipeList extends PureComponent {
   componentDidMount() {
-    this.props.loadRecipes();
+    this.props.loadRecipesAction();
   }
   props: Props;
   renderRecipeList = () => {
     const { recipeList } = this.props;
-    const recipes = Object.keys(recipeList).length > 0 ? recipeList.recipeList : [];
-    if (!recipes.length) {
+    if (!recipeList.length) {
       return (
         <EmptyBox>
           <h2>Your Recipe Box is empty.</h2>
@@ -45,7 +34,7 @@ class RecipeList extends PureComponent {
         </EmptyBox>
       );
     }
-    return recipes.map(recipe => (
+    return recipeList.map(recipe => (
       <RecipeItem
         key={recipe.id}
         id={recipe.id}
@@ -55,7 +44,7 @@ class RecipeList extends PureComponent {
     ));
   };
   render() {
-    const { modalState: { editRecipe }, showNewRecipeModalAction, recipeList } = this.props;
+    const { editModalVisibility, showNewRecipeModalAction, recipeList } = this.props;
     return recipeList && (
       <div>
         <Title>My Recipe Box</Title>
@@ -63,7 +52,7 @@ class RecipeList extends PureComponent {
           {this.renderRecipeList()}
         </Wrapper>
         <Button onClick={showNewRecipeModalAction}>New Recipe</Button>
-        <EditModal isOpen={editRecipe} />
+        <EditModal isOpen={editModalVisibility} />
       </div>
     );
   }
@@ -71,14 +60,12 @@ class RecipeList extends PureComponent {
 
 const mapStateToProps = createStructuredSelector({
   recipeList: selectRecipeList(),
-  modalState: selectModalState(),
+  editModalVisibility: selectEditModalVisibility(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loadRecipes: bindActionCreators(loadRecipes, dispatch),
-    showNewRecipeModalAction: bindActionCreators(showNewRecipeModal, dispatch),
-  };
-}
+const mapDispatchToProps = {
+  loadRecipesAction: loadRecipes,
+  showNewRecipeModalAction: showNewRecipeModal,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeList);

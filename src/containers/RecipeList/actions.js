@@ -1,5 +1,6 @@
 import SET_RECIPES from './constants';
 
+import selectRecipeList from './selectors';
 import { hideEditModal } from '../RecipeItem/actions';
 
 const initialState = [
@@ -29,14 +30,14 @@ export const loadRecipes = () => (dispatch) => {
 
 export const deleteItem = id => (dispatch, getState) => {
   const state = getState();
-  const recipes = state.recipeList.recipeList.filter(recipe => recipe.id !== id);
+  const recipes = selectRecipeList()(state).filter(recipe => recipe.id !== id);
   window.localStorage.setItem('_my_recipes', JSON.stringify(recipes));
   dispatch(setRecipes(recipes));
 };
 
 export const saveItemUpdates = (id, title, ingridients) => (dispatch, getState) => {
   const state = getState();
-  let recipes = state.recipeList.recipeList || [];
+  let recipes = selectRecipeList()(state);
   if (!recipes.length || (recipes.length && recipes[recipes.length - 1].id < id)) {
     recipes.push({ id, title, ingridients });
   } else {

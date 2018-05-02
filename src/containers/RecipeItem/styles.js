@@ -7,7 +7,8 @@ export const Item = styled.div`
   margin: 10px auto;
   border: solid 2px tan;
   border-radius: 3px;
-  max-width: 900px;
+  width: 900px;
+  max-width: 100%;
 `;
 
 export const Title = styled.h2`

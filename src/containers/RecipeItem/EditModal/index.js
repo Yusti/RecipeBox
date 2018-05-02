@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import { selectCurrentRecipe } from '../selectors';
@@ -85,11 +84,9 @@ const mapStateToProps = createStructuredSelector({
   recipe: selectCurrentRecipe(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    hideEditModalAction: bindActionCreators(hideEditModal, dispatch),
-    saveItemUpdatesAction: bindActionCreators(saveItemUpdates, dispatch),
-  };
-}
+const mapDispatchToProps = {
+  hideEditModalAction: hideEditModal,
+  saveItemUpdatesAction: saveItemUpdates,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditModal);
